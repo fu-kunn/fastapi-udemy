@@ -1,7 +1,13 @@
-price = 100
-tax = 1.1
+"""
+型ヒント
+: int
+: float
+"""
 
-def calc_price_including_tax(price, tax):
+price: int = 100
+tax: float = 1.1
+
+def calc_price_including_tax(price: int, tax: float) -> int:
     return int(price*tax)
 
 if __name__ == "__main__":
