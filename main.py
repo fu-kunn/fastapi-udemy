@@ -1,23 +1,32 @@
 from fastapi import FastAPI
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel
 
 """
 セクション4:FastAPI超入門
 27~
 """
+class ShopInfo(BaseModel):
+    name: str
+    location: str
+
 class Item(BaseModel):
     name: str
     description: Optional[str] = None
     price: int
     tax: Optional[float] = None
 
+# ShopInfoとItemをベースにクラスを作成している
+class Data(BaseModel):
+    shop_info: Optional[ShopInfo] = None
+    items: List[Item]
+
 # インスタンス化
 app = FastAPI()
 
-@app.post("/item/")
-async def create_item(item: Item):
-    return {"message": f"{item.name}は、税込価格{int(item.price*item.tax)}円です。"}
+@app.post("/")
+async def index(data: Data):
+    return {"data": data}
 
 
 
